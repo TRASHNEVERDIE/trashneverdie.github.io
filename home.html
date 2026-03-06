@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>TRASHNEVERDIE COMPANY</title>
+<title>TRASHNEVERDIE</title>
 
 <style>
 
@@ -10,113 +10,81 @@ background:black;
 color:#00ff9c;
 font-family:monospace;
 margin:0;
-overflow-x:hidden;
-cursor:crosshair;
 }
 
-/* NAVBAR */
+/* NAV */
 
 nav{
-position:fixed;
-top:0;
-width:100%;
-background:black;
-border-bottom:1px solid #00ff9c;
-padding:15px;
 text-align:center;
-z-index:10;
+padding:20px;
+border-bottom:1px solid #00ff9c;
 }
 
 nav a{
 color:#00ff9c;
 margin:20px;
 text-decoration:none;
-font-size:18px;
 }
 
-nav a:hover{
-color:white;
-}
-
-/* LOGO */
+/* GLITCH LOGO */
 
 .logo{
-font-size:50px;
+font-size:60px;
 text-align:center;
-margin-top:120px;
+margin-top:40px;
 animation:glitch 1s infinite;
 }
 
 @keyframes glitch{
-0%{text-shadow:2px 0 red}
-50%{text-shadow:-2px 0 cyan}
-100%{text-shadow:2px 0 red}
+
+0%{text-shadow:3px 0 red}
+50%{text-shadow:-3px 0 cyan}
+100%{text-shadow:3px 0 red}
+
 }
 
-/* PRODUCT GRID */
+/* PRODUCTS */
 
 .products{
+
 display:grid;
 grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-gap:30px;
+gap:40px;
 padding:80px;
+
 }
 
 .card{
+
 border:1px solid #00ff9c;
-padding:25px;
+padding:30px;
 text-align:center;
-background:#050505;
-transition:0.3s;
+
 }
 
 .card:hover{
-transform:scale(1.05);
+
 box-shadow:0 0 20px #00ff9c;
+
 }
 
 button{
+
 background:#00ff9c;
 border:none;
 padding:10px 20px;
-margin-top:15px;
 cursor:pointer;
+
 }
 
-/* CONTACT */
+/* CURSOR TRAIL */
 
-.contact{
-text-align:center;
-padding:80px;
-}
-
-.contact a{
-display:block;
-margin:10px;
-color:#00ff9c;
-font-size:18px;
-}
-
-/* MATRIX */
-
-canvas{
+.trail{
 position:fixed;
-top:0;
-left:0;
-z-index:-1;
-}
-
-/* ADMIN PANEL */
-
-#admin{
-display:none;
-position:fixed;
-top:50%;
-left:50%;
-transform:translate(-50%,-50%);
-background:black;
-border:1px solid #00ff9c;
-padding:30px;
+width:5px;
+height:5px;
+background:#00ff9c;
+pointer-events:none;
 }
 
 </style>
@@ -124,160 +92,117 @@ padding:30px;
 
 <body>
 
-<canvas id="matrix"></canvas>
-
 <nav>
-<a href="#home">HOME</a>
+
+<a href="#">HOME</a>
 <a href="#products">PRODUCTS</a>
 <a href="#contact">CONTACT</a>
+
 </nav>
 
 <div class="logo">
-TRASHNEVERDIE
-</div>
 
-<!-- PRODUCTS -->
+TRASHNEVERDIE
+
+</div>
 
 <section id="products" class="products">
 
 <div class="card">
+
 <h3>Advanced Anti Cheat</h3>
-<p>Protection against exploit & remote spy</p>
-<button onclick="download()">Download</button>
+
+<p>Exploit protection</p>
+
+<button>Download</button>
+
 </div>
 
 <div class="card">
+
 <h3>Security System</h3>
-<p>Anti Dex + anti exploit</p>
-<button onclick="download()">Download</button>
+
+<p>Anti Dex + Anti RemoteSpy</p>
+
+<button>Download</button>
+
 </div>
 
 <div class="card">
+
 <h3>Obby System</h3>
-<p>Checkpoint + leaderboard</p>
-<button onclick="download()">Download</button>
+
+<p>Checkpoint + Leaderboard</p>
+
+<button>Download</button>
+
 </div>
 
 <div class="card">
+
 <h3>Custom Development</h3>
-<p>Private Roblox systems</p>
-<button onclick="download()">Contact</button>
+
+<p>Private Roblox Systems</p>
+
+<button>Contact</button>
+
 </div>
 
 </section>
 
-<!-- CONTACT -->
-
-<section id="contact" class="contact">
+<section id="contact" style="text-align:center;padding:80px">
 
 <h2>CONTACT</h2>
 
-<a href="https://discord.gg/4C9S2b3jwu">Discord</a>
-<a href="https://facebook.com/trashneverdie">Facebook</a>
+<a href="https://discord.gg/4C9S2b3jwu">Discord</a><br>
+<a href="https://facebook.com/trashneverdie">Facebook</a><br>
 <a href="https://tiktok.com/@trashneverdie">TikTok</a>
 
 <br><br>
 
 <div id="discordMembers">
+
 Loading Discord Members...
+
 </div>
 
 </section>
 
-<!-- ADMIN -->
-
-<div id="admin">
-
-<h3>Admin Login</h3>
-
-<input type="password" id="pass" placeholder="password">
-
-<button onclick="login()">Login</button>
-
-</div>
-
 <script>
 
-/* MATRIX RAIN */
+/* CURSOR TRAIL */
 
-const canvas=document.getElementById("matrix")
-const ctx=canvas.getContext("2d")
+document.addEventListener("mousemove",function(e){
 
-canvas.height=window.innerHeight
-canvas.width=window.innerWidth
+let t=document.createElement("div")
 
-let letters="01TRASHNEVERDIE"
-letters=letters.split("")
+t.className="trail"
 
-let font=14
-let columns=canvas.width/font
-let drops=[]
+t.style.left=e.pageX+"px"
+t.style.top=e.pageY+"px"
 
-for(let x=0;x<columns;x++)
-drops[x]=1
+document.body.appendChild(t)
 
-function draw(){
+setTimeout(()=>{t.remove()},300)
 
-ctx.fillStyle="rgba(0,0,0,0.05)"
-ctx.fillRect(0,0,canvas.width,canvas.height)
+})
 
-ctx.fillStyle="#00ff9c"
-ctx.font=font+"px monospace"
+/* HIDDEN PAGE */
 
-for(let i=0;i<drops.length;i++){
+let secret="dev"
+let input=""
 
-let text=letters[Math.floor(Math.random()*letters.length)]
+document.addEventListener("keypress",function(e){
 
-ctx.fillText(text,i*font,drops[i]*font)
+input+=e.key
 
-if(drops[i]*font>canvas.height&&Math.random()>0.975)
-drops[i]=0
+if(input.includes(secret)){
 
-drops[i]++
-
-}
-
-}
-
-setInterval(draw,35)
-
-/* DOWNLOAD */
-
-function download(){
-
-alert("Download system coming soon.")
-
-}
-
-/* ADMIN SECRET */
-
-document.addEventListener("keydown",function(e){
-
-if(e.key=="F9"){
-
-document.getElementById("admin").style.display="block"
+window.location="dev.html"
 
 }
 
 })
-
-function login(){
-
-let p=document.getElementById("pass").value
-
-if(p=="trashneverdie"){
-
-alert("Access granted")
-
-window.location="dev.html"
-
-}else{
-
-alert("Access denied")
-
-}
-
-}
 
 </script>
 
