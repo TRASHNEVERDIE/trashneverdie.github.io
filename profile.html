@@ -1,9 +1,8 @@
 <!DOCTYPE html>
 <html>
-
 <head>
 
-<title>TRASHNEVERDIE PRODUCTS</title>
+<title>TRASHNEVERDIE PROFILE</title>
 
 <style>
 
@@ -12,16 +11,16 @@ margin:0;
 background:black;
 color:#00ffff;
 font-family:monospace;
-overflow-x:hidden;
+overflow:hidden;
 }
 
-/* PARTICLE BACKGROUND */
+/* CANVAS BACKGROUND */
 
-#bg{
+#particles{
 position:fixed;
 top:0;
 left:0;
-z-index:-1;
+z-index:-2;
 }
 
 /* NAV */
@@ -35,135 +34,97 @@ background:rgba(0,0,0,0.6);
 
 nav a{
 color:#00ffff;
-text-decoration:none;
 margin:10px;
+text-decoration:none;
 }
 
-/* TITLE */
+/* PROFILE */
 
-.title{
+.profile{
 text-align:center;
 margin-top:80px;
-font-size:50px;
+}
 
+.title{
+font-size:50px;
 background:linear-gradient(90deg,#00ffff,#00ff99,#66ff00);
 -webkit-background-clip:text;
 color:transparent;
-
 }
 
-/* TABS */
+/* LOGO */
 
-.tabs{
+#logo3d{
+width:300px;
+height:300px;
+margin:auto;
+}
 
-display:flex;
-flex-wrap:wrap;
-justify-content:center;
+/* TERMINAL CHAT */
+
+.chatbox{
+
+width:600px;
+max-width:90%;
+
+margin:auto;
 margin-top:40px;
 
-}
-
-.tab{
-
-padding:10px 20px;
-margin:8px;
-
+background:#050505;
 border:1px solid #00ffff;
-cursor:pointer;
 
-transition:0.3s;
-
-}
-
-.tab:hover{
-
-background:#00ffff;
-color:black;
+padding:20px;
 
 box-shadow:0 0 20px #00ffff;
 
 }
 
-/* PRODUCT GRID */
-
-.products{
-
-display:grid;
-
-grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-
-gap:30px;
-
-padding:60px;
-
+.messages{
+height:200px;
+overflow:auto;
 }
 
-.card{
-
-background:#050505;
-
+input{
+width:100%;
+padding:10px;
+background:black;
 border:1px solid #00ffff;
-
-padding:25px;
-
-border-radius:8px;
-
-transition:0.4s;
-
-}
-
-.card:hover{
-
-transform:translateY(-10px) scale(1.05);
-
-box-shadow:0 0 25px #00ffff;
-
-}
-
-.card h3{
-
 color:#00ffff;
-
 }
 
-.card p{
+/* EXPLOIT SCANNER */
 
-color:#aaa;
-
-line-height:1.4;
-
+.scanner{
+margin-top:40px;
+text-align:center;
 }
 
-/* SCANNER LINE */
+.log{
+color:#00ff99;
+}
 
-.scanline{
+/* SECRET PANEL */
+
+#devpanel{
 
 position:fixed;
-top:0;
-left:0;
-width:100%;
-height:3px;
-background:#00ffff;
-animation:scan 5s linear infinite;
+bottom:0;
+right:0;
+background:#050505;
+border:1px solid #00ffff;
 
-}
+padding:20px;
 
-@keyframes scan{
-
-0%{top:0}
-100%{top:100%}
+display:none;
 
 }
 
 </style>
-
 </head>
 
 <body>
 
-<canvas id="bg"></canvas>
-
-<div class="scanline"></div>
+<canvas id="particles"></canvas>
 
 <nav>
 
@@ -177,110 +138,50 @@ animation:scan 5s linear infinite;
 
 </nav>
 
-<h1 class="title">SECURITY SYSTEM PRODUCTS</h1>
+<div class="profile">
 
-<div class="tabs">
-
-<div class="tab">ANTI CHEAT SYSTEM</div>
-<div class="tab">ANTI EXPLOIT</div>
-<div class="tab">ADVANCED SCRIPT</div>
-<div class="tab">GAME SECURITY</div>
-<div class="tab">OPTIMIZATION SYSTEM</div>
-<div class="tab">SERVER PROTECTION</div>
-<div class="tab">ANTI DEX</div>
-<div class="tab">ANTI REMOTE SPY</div>
-
-</div>
-
-<div class="products">
-
-<div class="card">
-
-<h3>ULTRA ANTI CHEAT CORE</h3>
+<h1 class="title">TRASHNEVERDIE COMPANY</h1>
 
 <p>
-Advanced behavioral detection engine capable of identifying exploit
-executors, abnormal movement logic, and malicious client manipulation.
+
+Independent developer entity specializing in
+advanced exploit protection systems,
+anti cheat technologies,
+and high level game scripting architecture.
+
 </p>
+
+<div id="logo3d"></div>
 
 </div>
 
-<div class="card">
+<!-- AI CHAT TERMINAL -->
 
-<h3>REMOTE SPY SHIELD</h3>
+<div class="chatbox">
 
-<p>
-Prevents exploiters from reading sensitive RemoteEvents and RemoteFunctions
-used in server communication systems.
-</p>
+<div class="messages" id="messages"></div>
 
-</div>
-
-<div class="card">
-
-<h3>ANTI DEX DEFENDER</h3>
-
-<p>
-Protects your game hierarchy from Dex explorers by hiding, renaming,
-and dynamically securing critical objects.
-</p>
+<input id="input" placeholder="type command...">
 
 </div>
 
-<div class="card">
+<!-- EXPLOIT DETECTION -->
 
-<h3>SERVER FIREWALL</h3>
+<div class="scanner">
 
-<p>
-A server validation framework that blocks unauthorized requests,
-invalid arguments, and exploit attempts.
-</p>
+<h3>LIVE EXPLOIT DETECTION</h3>
 
-</div>
-
-<div class="card">
-
-<h3>ANTI EXPLOIT ENGINE</h3>
-
-<p>
-Multi-layer exploit detection system capable of detecting
-common executor behavior and exploit injection attempts.
-</p>
+<div id="log"></div>
 
 </div>
 
-<div class="card">
+<!-- SECRET DEV PANEL -->
 
-<h3>GAME OPTIMIZER</h3>
+<div id="devpanel">
 
-<p>
-Performance optimization modules designed to reduce lag,
-increase server stability, and improve player experience.
-</p>
+<h3>DEVELOPER PANEL</h3>
 
-</div>
-
-<div class="card">
-
-<h3>ADVANCED SCRIPT FRAMEWORK</h3>
-
-<p>
-High-level scripting architecture used to build secure,
-scalable systems for modern game environments.
-</p>
-
-</div>
-
-<div class="card">
-
-<h3>SECURITY MONITOR</h3>
-
-<p>
-Real-time monitoring engine that logs suspicious actions
-and provides developer insight into exploit behavior.
-</p>
-
-</div>
+<p>System Control Access</p>
 
 </div>
 
@@ -288,7 +189,7 @@ and provides developer insight into exploit behavior.
 
 /* PARTICLE BACKGROUND */
 
-const canvas=document.getElementById("bg")
+const canvas=document.getElementById("particles")
 const ctx=canvas.getContext("2d")
 
 canvas.width=window.innerWidth
@@ -296,15 +197,13 @@ canvas.height=window.innerHeight
 
 let particles=[]
 
-for(let i=0;i<100;i++){
+for(let i=0;i<120;i++){
 
 particles.push({
-
 x:Math.random()*canvas.width,
 y:Math.random()*canvas.height,
 vx:Math.random()*2-1,
 vy:Math.random()*2-1
-
 })
 
 }
@@ -330,6 +229,110 @@ requestAnimationFrame(draw)
 }
 
 draw()
+
+/* 3D ROTATING LOGO */
+
+const logo=document.getElementById("logo3d")
+
+let angle=0
+
+setInterval(()=>{
+
+angle+=1
+
+logo.style.transform="rotateY("+angle+"deg)"
+
+logo.innerHTML="<h2>TRASHNEVERDIE</h2>"
+
+},16)
+
+/* AI TERMINAL */
+
+const messages=document.getElementById("messages")
+const input=document.getElementById("input")
+
+const responses={
+
+"who are you":"TRASHNEVERDIE AI TERMINAL",
+"company":"Independent security developer",
+"systems":"Anti exploit / anti cheat / security frameworks",
+"hello":"Welcome to TRASHNEVERDIE terminal"
+
+}
+
+input.addEventListener("keydown",e=>{
+
+if(e.key==="Enter"){
+
+let text=input.value
+
+messages.innerHTML+="<div>> "+text+"</div>"
+
+let reply=responses[text.toLowerCase()] || "Unknown command"
+
+messages.innerHTML+="<div>"+reply+"</div>"
+
+input.value=""
+
+messages.scrollTop=messages.scrollHeight
+
+}
+
+})
+
+/* EXPLOIT SCANNER */
+
+const log=document.getElementById("log")
+
+const events=[
+
+"executor signature detected",
+"remote spy behavior found",
+"dex injection attempt",
+"memory scan active",
+"security firewall enabled"
+
+]
+
+setInterval(()=>{
+
+let div=document.createElement("div")
+
+div.className="log"
+
+div.textContent=events[Math.floor(Math.random()*events.length)]
+
+log.prepend(div)
+
+},1500)
+
+/* FAKE HACK SCREEN */
+
+setInterval(()=>{
+
+if(Math.random()>0.97){
+
+alert("WARNING: Suspicious exploit detected")
+
+}
+
+},8000)
+
+/* SECRET PANEL */
+
+let code=""
+
+document.addEventListener("keydown",e=>{
+
+code+=e.key.toUpperCase()
+
+if(code.includes("DEV")){
+
+document.getElementById("devpanel").style.display="block"
+
+}
+
+})
 
 </script>
 
