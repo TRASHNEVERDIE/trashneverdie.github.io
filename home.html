@@ -1,277 +1,285 @@
 <!DOCTYPE html>
 <html>
-
 <head>
-
 <title>TRASHNEVERDIE COMPANY</title>
 
 <style>
 
 body{
-margin:0;
-font-family:Consolas;
 background:black;
-color:white;
+color:#00ff9c;
+font-family:monospace;
+margin:0;
 overflow-x:hidden;
-}
-
-/* BACKGROUND GRID */
-
-body::before{
-content:"";
-position:fixed;
-width:100%;
-height:100%;
-background-image:
-linear-gradient(#00ff9d22 1px, transparent 1px),
-linear-gradient(90deg,#00ff9d22 1px, transparent 1px);
-background-size:40px 40px;
-z-index:-1;
+cursor:crosshair;
 }
 
 /* NAVBAR */
 
 nav{
-background:#050505;
-padding:18px;
-display:flex;
-justify-content:center;
-gap:60px;
-border-bottom:1px solid #00ff9d55;
+position:fixed;
+top:0;
+width:100%;
+background:black;
+border-bottom:1px solid #00ff9c;
+padding:15px;
+text-align:center;
+z-index:10;
 }
 
 nav a{
+color:#00ff9c;
+margin:20px;
 text-decoration:none;
-color:white;
 font-size:18px;
-letter-spacing:2px;
-transition:0.3s;
 }
 
 nav a:hover{
-color:#00ff9d;
-text-shadow:0 0 10px #00ff9d;
+color:white;
 }
 
-/* SECTION */
+/* LOGO */
 
-section{
-display:none;
-padding:80px 20px;
+.logo{
+font-size:50px;
 text-align:center;
+margin-top:120px;
+animation:glitch 1s infinite;
 }
 
-.active{
-display:block;
-}
-
-/* TITLE */
-
-h1{
-font-size:55px;
-color:#00ff9d;
-text-shadow:0 0 20px #00ff9d55;
+@keyframes glitch{
+0%{text-shadow:2px 0 red}
+50%{text-shadow:-2px 0 cyan}
+100%{text-shadow:2px 0 red}
 }
 
 /* PRODUCT GRID */
 
 .products{
 display:grid;
-grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-gap:40px;
-max-width:1100px;
-margin:auto;
-margin-top:60px;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:30px;
+padding:80px;
 }
-
-/* CARD */
 
 .card{
-background:#0a0a0a;
-border:1px solid #222;
-padding:35px;
-transition:0.4s;
-position:relative;
-overflow:hidden;
-}
-
-.card::before{
-content:"";
-position:absolute;
-top:0;
-left:-100%;
-width:100%;
-height:100%;
-background:linear-gradient(90deg,transparent,#00ff9d33,transparent);
-transition:0.6s;
-}
-
-.card:hover::before{
-left:100%;
+border:1px solid #00ff9c;
+padding:25px;
+text-align:center;
+background:#050505;
+transition:0.3s;
 }
 
 .card:hover{
-transform:translateY(-8px);
-border-color:#00ff9d;
-box-shadow:0 0 25px #00ff9d33;
+transform:scale(1.05);
+box-shadow:0 0 20px #00ff9c;
 }
-
-.card h3{
-margin-bottom:15px;
-}
-
-.card p{
-color:#aaa;
-font-size:14px;
-}
-
-/* BUTTON */
 
 button{
-margin-top:20px;
-background:transparent;
-border:1px solid #00ff9d;
-color:#00ff9d;
-padding:10px 25px;
+background:#00ff9c;
+border:none;
+padding:10px 20px;
+margin-top:15px;
 cursor:pointer;
-transition:0.3s;
 }
 
-button:hover{
-background:#00ff9d;
-color:black;
-box-shadow:0 0 15px #00ff9d;
+/* CONTACT */
+
+.contact{
+text-align:center;
+padding:80px;
 }
 
-/* SOCIAL */
-
-.social{
-margin-top:40px;
-}
-
-.social a{
-display:inline-block;
-margin:10px 20px;
+.contact a{
+display:block;
+margin:10px;
+color:#00ff9c;
 font-size:18px;
-text-decoration:none;
-color:white;
-transition:0.3s;
 }
 
-.social a:hover{
-color:#00ff9d;
-text-shadow:0 0 10px #00ff9d;
+/* MATRIX */
+
+canvas{
+position:fixed;
+top:0;
+left:0;
+z-index:-1;
 }
 
-/* FOOTER */
+/* ADMIN PANEL */
 
-footer{
-margin-top:80px;
-padding:25px;
-background:#050505;
-color:#777;
-font-size:14px;
-border-top:1px solid #00ff9d22;
+#admin{
+display:none;
+position:fixed;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
+background:black;
+border:1px solid #00ff9c;
+padding:30px;
 }
 
 </style>
-
 </head>
 
 <body>
 
+<canvas id="matrix"></canvas>
+
 <nav>
-
-<a onclick="showTab('home')">HOME</a>
-<a onclick="showTab('products')">PRODUCTS</a>
-<a onclick="showTab('contact')">CONTACT</a>
-
+<a href="#home">HOME</a>
+<a href="#products">PRODUCTS</a>
+<a href="#contact">CONTACT</a>
 </nav>
 
-<section id="home" class="active">
+<div class="logo">
+TRASHNEVERDIE
+</div>
 
-<h1>TRASHNEVERDIE</h1>
+<!-- PRODUCTS -->
 
-<p>
-Independent Developer Organization
-</p>
-
-<p>
-One Developer<br>
-One Mind<br>
-One Shadow
-</p>
-
-</section>
-
-<section id="products">
-
-<h1>Products</h1>
-
-<div class="products">
+<section id="products" class="products">
 
 <div class="card">
 <h3>Advanced Anti Cheat</h3>
-<p>Protection against exploit tools and remote spy.</p>
-<button>Details</button>
+<p>Protection against exploit & remote spy</p>
+<button onclick="download()">Download</button>
 </div>
 
 <div class="card">
 <h3>Security System</h3>
-<p>Anti Dex + Anti exploit protection.</p>
-<button>Details</button>
+<p>Anti Dex + anti exploit</p>
+<button onclick="download()">Download</button>
 </div>
 
 <div class="card">
 <h3>Obby System</h3>
-<p>Checkpoint system with timer & leaderboard.</p>
-<button>Details</button>
+<p>Checkpoint + leaderboard</p>
+<button onclick="download()">Download</button>
 </div>
 
 <div class="card">
 <h3>Custom Development</h3>
-<p>Private system development for Roblox games.</p>
-<button>Details</button>
-</div>
-
+<p>Private Roblox systems</p>
+<button onclick="download()">Contact</button>
 </div>
 
 </section>
 
-<section id="contact">
+<!-- CONTACT -->
 
-<h1>Contact</h1>
+<section id="contact" class="contact">
 
-<div class="social">
+<h2>CONTACT</h2>
 
 <a href="https://discord.gg/4C9S2b3jwu">Discord</a>
 <a href="https://facebook.com/trashneverdie">Facebook</a>
 <a href="https://tiktok.com/@trashneverdie">TikTok</a>
 
+<br><br>
+
+<div id="discordMembers">
+Loading Discord Members...
 </div>
 
 </section>
 
-<footer>
+<!-- ADMIN -->
 
-TRASHNEVERDIE COMPANY
+<div id="admin">
 
-</footer>
+<h3>Admin Login</h3>
+
+<input type="password" id="pass" placeholder="password">
+
+<button onclick="login()">Login</button>
+
+</div>
 
 <script>
 
-function showTab(tab){
+/* MATRIX RAIN */
 
-document.querySelectorAll("section").forEach(s=>{
-s.classList.remove("active")
+const canvas=document.getElementById("matrix")
+const ctx=canvas.getContext("2d")
+
+canvas.height=window.innerHeight
+canvas.width=window.innerWidth
+
+let letters="01TRASHNEVERDIE"
+letters=letters.split("")
+
+let font=14
+let columns=canvas.width/font
+let drops=[]
+
+for(let x=0;x<columns;x++)
+drops[x]=1
+
+function draw(){
+
+ctx.fillStyle="rgba(0,0,0,0.05)"
+ctx.fillRect(0,0,canvas.width,canvas.height)
+
+ctx.fillStyle="#00ff9c"
+ctx.font=font+"px monospace"
+
+for(let i=0;i<drops.length;i++){
+
+let text=letters[Math.floor(Math.random()*letters.length)]
+
+ctx.fillText(text,i*font,drops[i]*font)
+
+if(drops[i]*font>canvas.height&&Math.random()>0.975)
+drops[i]=0
+
+drops[i]++
+
+}
+
+}
+
+setInterval(draw,35)
+
+/* DOWNLOAD */
+
+function download(){
+
+alert("Download system coming soon.")
+
+}
+
+/* ADMIN SECRET */
+
+document.addEventListener("keydown",function(e){
+
+if(e.key=="F9"){
+
+document.getElementById("admin").style.display="block"
+
+}
+
 })
 
-document.getElementById(tab).classList.add("active")
+function login(){
+
+let p=document.getElementById("pass").value
+
+if(p=="trashneverdie"){
+
+alert("Access granted")
+
+window.location="dev.html"
+
+}else{
+
+alert("Access denied")
+
+}
 
 }
 
 </script>
 
 </body>
-
 </html>
