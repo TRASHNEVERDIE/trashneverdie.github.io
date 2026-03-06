@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>TRASHNEVERDIE COMPANY</title>
+
+<style>
+
+body{
+background:black;
+color:white;
+font-family:Consolas,monospace;
+text-align:center;
+overflow:hidden;
+}
+
+h1{
+font-size:60px;
+letter-spacing:5px;
+animation:glitch 1s infinite;
+}
+
+@keyframes glitch{
+0%{text-shadow:2px 2px red;}
+25%{text-shadow:-2px 2px cyan;}
+50%{text-shadow:2px -2px red;}
+75%{text-shadow:-2px -2px cyan;}
+100%{text-shadow:2px 2px red;}
+}
+
+.container{
+position:absolute;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
+}
+
+.btn{
+margin-top:20px;
+padding:10px 25px;
+border:1px solid white;
+color:white;
+text-decoration:none;
+transition:0.3s;
+}
+
+.btn:hover{
+background:white;
+color:black;
+}
+
+canvas{
+position:fixed;
+top:0;
+left:0;
+z-index:-1;
+}
+
+</style>
+</head>
+
+<body>
+
+<canvas id="matrix"></canvas>
+
+<div class="container">
+
+<h1>TRASHNEVERDIE</h1>
+
+<p>
+One Developer.<br>
+One Mind.<br>
+One Shadow.
+</p>
+
+<a class="btn" href="#">ENTER</a>
+
+</div>
+
+<script>
+
+var canvas = document.getElementById("matrix");
+var ctx = canvas.getContext("2d");
+
+canvas.height = window.innerHeight;
+canvas.width = window.innerWidth;
+
+var letters = "TRASHNEVERDIE01";
+letters = letters.split("");
+
+var fontSize = 14;
+var columns = canvas.width/fontSize;
+
+var drops = [];
+for(var x=0;x<columns;x++)
+drops[x]=1;
+
+function draw(){
+ctx.fillStyle="rgba(0,0,0,0.05)";
+ctx.fillRect(0,0,canvas.width,canvas.height);
+
+ctx.fillStyle="#0F0";
+ctx.font=fontSize+"px monospace";
+
+for(var i=0;i<drops.length;i++){
+
+var text=letters[Math.floor(Math.random()*letters.length)];
+
+ctx.fillText(text,i*fontSize,drops[i]*fontSize);
+
+if(drops[i]*fontSize>canvas.height && Math.random()>0.975)
+drops[i]=0;
+
+drops[i]++;
+}
+}
+
+setInterval(draw,33);
+
+</script>
+
+</body>
+</html>
