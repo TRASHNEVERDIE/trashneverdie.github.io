@@ -1,210 +1,44 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>TRASHNEVERDIE</title>
-
-<style>
-
-body{
-background:black;
-color:#00ff9c;
-font-family:monospace;
-margin:0;
-}
-
-/* NAV */
-
-nav{
-text-align:center;
-padding:20px;
-border-bottom:1px solid #00ff9c;
-}
-
-nav a{
-color:#00ff9c;
-margin:20px;
-text-decoration:none;
-}
-
-/* GLITCH LOGO */
-
-.logo{
-font-size:60px;
-text-align:center;
-margin-top:40px;
-animation:glitch 1s infinite;
-}
-
-@keyframes glitch{
-
-0%{text-shadow:3px 0 red}
-50%{text-shadow:-3px 0 cyan}
-100%{text-shadow:3px 0 red}
-
-}
-
-/* PRODUCTS */
-
-.products{
-
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-gap:40px;
-padding:80px;
-
-}
-
-.card{
-
-border:1px solid #00ff9c;
-padding:30px;
-text-align:center;
-
-}
-
-.card:hover{
-
-box-shadow:0 0 20px #00ff9c;
-
-}
-
-button{
-
-background:#00ff9c;
-border:none;
-padding:10px 20px;
-cursor:pointer;
-
-}
-
-/* CURSOR TRAIL */
-
-.trail{
-position:fixed;
-width:5px;
-height:5px;
-background:#00ff9c;
-pointer-events:none;
-}
-
-</style>
+<title>Home - TRASHNEVERDIE</title>
+<link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
+<canvas id="matrix"></canvas>
+
 <nav>
 
-<a href="#">HOME</a>
-<a href="#products">PRODUCTS</a>
-<a href="#contact">CONTACT</a>
+<h2 class="navlogo">TRASHNEVERDIE</h2>
+
+<ul>
+
+<li><a href="home.html">HOME</a></li>
+<li><a href="profile.html">PROFILE</a></li>
+<li><a href="product.html">PRODUCT</a></li>
+
+</ul>
 
 </nav>
 
-<div class="logo">
+<section class="home">
 
-TRASHNEVERDIE
+<h1 class="bigtitle">ADVANCED SYSTEM DEVELOPMENT</h1>
 
-</div>
+<p>
 
-<section id="products" class="products">
+Specializing in powerful scripting, anti exploit technology,
+and next generation systems for secure games.
 
-<div class="card">
+</p>
 
-<h3>Advanced Anti Cheat</h3>
-
-<p>Exploit protection</p>
-
-<button>Download</button>
-
-</div>
-
-<div class="card">
-
-<h3>Security System</h3>
-
-<p>Anti Dex + Anti RemoteSpy</p>
-
-<button>Download</button>
-
-</div>
-
-<div class="card">
-
-<h3>Obby System</h3>
-
-<p>Checkpoint + Leaderboard</p>
-
-<button>Download</button>
-
-</div>
-
-<div class="card">
-
-<h3>Custom Development</h3>
-
-<p>Private Roblox Systems</p>
-
-<button>Contact</button>
-
-</div>
+<a href="product.html">
+<button class="productBtn">SEE PRODUCTS</button>
+</a>
 
 </section>
-
-<section id="contact" style="text-align:center;padding:80px">
-
-<h2>CONTACT</h2>
-
-<a href="https://discord.gg/4C9S2b3jwu">Discord</a><br>
-<a href="https://facebook.com/trashneverdie">Facebook</a><br>
-<a href="https://tiktok.com/@trashneverdie">TikTok</a>
-
-<br><br>
-
-<div id="discordMembers">
-
-Loading Discord Members...
-
-</div>
-
-</section>
-
-<script>
-
-/* CURSOR TRAIL */
-
-document.addEventListener("mousemove",function(e){
-
-let t=document.createElement("div")
-
-t.className="trail"
-
-t.style.left=e.pageX+"px"
-t.style.top=e.pageY+"px"
-
-document.body.appendChild(t)
-
-setTimeout(()=>{t.remove()},300)
-
-})
-
-/* HIDDEN PAGE */
-
-let secret="dev"
-let input=""
-
-document.addEventListener("keypress",function(e){
-
-input+=e.key
-
-if(input.includes(secret)){
-
-window.location="dev.html"
-
-}
-
-})
-
-</script>
 
 </body>
 </html>
