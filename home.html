@@ -1,44 +1,369 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Home - TRASHNEVERDIE</title>
-<link rel="stylesheet" href="style.css">
+
+<title>TRASHNEVERDIE COMPANY</title>
+
+<style>
+
+body{
+margin:0;
+background:black;
+color:#00ffff;
+font-family:monospace;
+overflow:hidden;
+}
+
+/* MATRIX CANVAS */
+
+#matrix{
+position:fixed;
+top:0;
+left:0;
+z-index:-2;
+}
+
+/* LOADING SCREEN */
+
+#loading{
+
+position:fixed;
+width:100%;
+height:100%;
+background:black;
+display:flex;
+justify-content:center;
+align-items:center;
+flex-direction:column;
+z-index:9999;
+
+}
+
+.loader{
+
+font-size:30px;
+animation:blink 1s infinite;
+
+}
+
+@keyframes blink{
+0%{opacity:1}
+50%{opacity:0}
+100%{opacity:1}
+}
+
+/* NAVBAR */
+
+nav{
+
+position:fixed;
+top:0;
+width:100%;
+display:flex;
+justify-content:space-between;
+padding:20px;
+background:rgba(0,0,0,0.5);
+
+}
+
+nav a{
+
+margin:10px;
+text-decoration:none;
+color:#00ffff;
+
+}
+
+/* HERO */
+
+.hero{
+
+margin-top:150px;
+text-align:center;
+
+}
+
+.title{
+
+font-size:60px;
+
+background:linear-gradient(90deg,#00ffff,#00ff99,#66ff00);
+
+-webkit-background-clip:text;
+color:transparent;
+
+animation:glow 4s infinite;
+
+}
+
+@keyframes glow{
+
+0%{filter:drop-shadow(0 0 5px #00ffff)}
+50%{filter:drop-shadow(0 0 25px #00ff99)}
+100%{filter:drop-shadow(0 0 5px #00ffff)}
+
+}
+
+/* TERMINAL */
+
+.terminal{
+
+width:700px;
+max-width:90%;
+margin:auto;
+margin-top:50px;
+
+background:#050505;
+border:1px solid #00ffff;
+padding:20px;
+
+text-align:left;
+
+box-shadow:0 0 20px #00ffff;
+
+}
+
+.line{
+margin:5px 0;
+}
+
+/* DISCORD */
+
+.discord{
+
+margin-top:60px;
+text-align:center;
+
+}
+
+/* PARTICLES */
+
+.particle{
+
+position:fixed;
+width:6px;
+height:6px;
+background:#00ffff;
+pointer-events:none;
+border-radius:50%;
+box-shadow:0 0 10px #00ffff;
+
+}
+
+</style>
 </head>
 
 <body>
 
+<!-- LOADING -->
+
+<div id="loading">
+
+<div class="loader">INITIALIZING SYSTEM...</div>
+<p>TRASHNEVERDIE SECURITY CORE</p>
+
+</div>
+
+<!-- MATRIX -->
+
 <canvas id="matrix"></canvas>
+
+<!-- NAV -->
 
 <nav>
 
-<h2 class="navlogo">TRASHNEVERDIE</h2>
+<div>TRASHNEVERDIE</div>
 
-<ul>
+<div>
 
-<li><a href="home.html">HOME</a></li>
-<li><a href="profile.html">PROFILE</a></li>
-<li><a href="product.html">PRODUCT</a></li>
+<a href="home.html">HOME</a>
+<a href="profile.html">PROFILE</a>
+<a href="product.html">PRODUCT</a>
 
-</ul>
+</div>
 
 </nav>
 
-<section class="home">
+<!-- HERO -->
 
-<h1 class="bigtitle">ADVANCED SYSTEM DEVELOPMENT</h1>
+<div class="hero">
 
-<p>
+<h1 class="title">TRASHNEVERDIE COMPANY</h1>
 
-Specializing in powerful scripting, anti exploit technology,
-and next generation systems for secure games.
+<p>Independent Cyber System Developer</p>
 
-</p>
+</div>
 
-<a href="product.html">
-<button class="productBtn">SEE PRODUCTS</button>
-</a>
+<!-- TERMINAL -->
 
-</section>
+<div class="terminal" id="terminal">
+
+<div class="line">> Booting security systems...</div>
+
+</div>
+
+<!-- DISCORD -->
+
+<div class="discord">
+
+<h3>DISCORD COMMUNITY</h3>
+
+<p id="discordCount">Loading members...</p>
+
+</div>
+
+<script>
+
+/* LOADING SCREEN */
+
+setTimeout(()=>{
+
+document.getElementById("loading").style.display="none"
+
+},2000)
+
+/* MATRIX */
+
+const canvas = document.getElementById("matrix")
+const ctx = canvas.getContext("2d")
+
+canvas.height=window.innerHeight
+canvas.width=window.innerWidth
+
+const letters="01TRASHNEVERDIE"
+const matrix=letters.split("")
+
+const font_size=14
+const columns=canvas.width/font_size
+
+const drops=[]
+
+for(let x=0;x<columns;x++)
+drops[x]=1
+
+function draw(){
+
+ctx.fillStyle="rgba(0,0,0,0.05)"
+ctx.fillRect(0,0,canvas.width,canvas.height)
+
+ctx.fillStyle="#00ff99"
+ctx.font=font_size+"px monospace"
+
+for(let i=0;i<drops.length;i++){
+
+const text=matrix[Math.floor(Math.random()*matrix.length)]
+
+ctx.fillText(text,i*font_size,drops[i]*font_size)
+
+if(drops[i]*font_size>canvas.height && Math.random()>0.975)
+drops[i]=0
+
+drops[i]++
+
+}
+
+}
+
+setInterval(draw,33)
+
+/* TERMINAL AI */
+
+const terminal=document.getElementById("terminal")
+
+const lines=[
+
+"> scanning exploit signatures...",
+"> anti cheat modules loaded",
+"> server firewall active",
+"> exploit detection ready",
+"> system secured by TRASHNEVERDIE"
+
+]
+
+let i=0
+
+function typeLine(){
+
+if(i<lines.length){
+
+let div=document.createElement("div")
+
+div.className="line"
+
+div.textContent=lines[i]
+
+terminal.appendChild(div)
+
+i++
+
+setTimeout(typeLine,900)
+
+}
+
+}
+
+setTimeout(typeLine,1000)
+
+/* MOUSE PARTICLES */
+
+document.addEventListener("mousemove",e=>{
+
+let particle=document.createElement("div")
+
+particle.className="particle"
+
+particle.style.left=e.clientX+"px"
+particle.style.top=e.clientY+"px"
+
+document.body.appendChild(particle)
+
+setTimeout(()=>{
+
+particle.remove()
+
+},500)
+
+})
+
+/* SECRET CHEAT CODE */
+
+let input=""
+
+document.addEventListener("keydown",e=>{
+
+input+=e.key.toUpperCase()
+
+if(input.includes("TRASH")){
+
+alert("ACCESS GRANTED: TRASHNEVERDIE CORE")
+
+input=""
+
+}
+
+})
+
+/* DISCORD MEMBER COUNTER */
+/* ganti SERVER_ID */
+
+const SERVER_ID="YOUR_SERVER_ID"
+
+fetch(`https://discord.com/api/guilds/${SERVER_ID}/widget.json`)
+.then(res=>res.json())
+.then(data=>{
+
+document.getElementById("discordCount").innerText=
+data.presence_count+" members online"
+
+})
+.catch(()=>{
+
+document.getElementById("discordCount").innerText=
+"Discord data unavailable"
+
+})
+
+</script>
 
 </body>
 </html>
