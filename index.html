@@ -1,58 +1,163 @@
 <!DOCTYPE html>
 <html>
 <head>
+<meta charset="UTF-8">
 <title>TRASHNEVERDIE COMPANY</title>
 
 <style>
 
 body{
+margin:0;
 background:black;
-color:white;
-font-family:Consolas,monospace;
-text-align:center;
-overflow:hidden;
+color:#00ff9d;
+font-family:Consolas;
+overflow-x:hidden;
 }
 
-h1{
-font-size:60px;
-letter-spacing:5px;
-animation:glitch 1s infinite;
+/* LOADING SCREEN */
+
+#loader{
+position:fixed;
+width:100%;
+height:100%;
+background:black;
+display:flex;
+align-items:center;
+justify-content:center;
+z-index:999;
+font-size:30px;
+animation: flicker 1s infinite;
 }
 
-@keyframes glitch{
-0%{text-shadow:2px 2px red;}
-25%{text-shadow:-2px 2px cyan;}
-50%{text-shadow:2px -2px red;}
-75%{text-shadow:-2px -2px cyan;}
-100%{text-shadow:2px 2px red;}
+@keyframes flicker{
+0%{opacity:1}
+50%{opacity:.5}
+100%{opacity:1}
 }
 
-.container{
-position:absolute;
-top:50%;
-left:50%;
-transform:translate(-50%,-50%);
+/* NAVBAR */
+
+nav{
+display:flex;
+justify-content:center;
+gap:40px;
+padding:15px;
+border-bottom:1px solid #00ff9d33;
 }
 
-.btn{
-margin-top:20px;
-padding:10px 25px;
-border:1px solid white;
-color:white;
-text-decoration:none;
-transition:0.3s;
+nav button{
+background:none;
+border:1px solid #00ff9d;
+color:#00ff9d;
+padding:8px 18px;
+cursor:pointer;
 }
 
-.btn:hover{
-background:white;
+nav button:hover{
+background:#00ff9d;
 color:black;
 }
 
-canvas{
-position:fixed;
-top:0;
+/* SECTIONS */
+
+section{
+display:none;
+padding:60px 20px;
+text-align:center;
+}
+
+.active{
+display:block;
+}
+
+/* GLITCH LOGO */
+
+.logo{
+font-size:55px;
+position:relative;
+}
+
+.logo::before,
+.logo::after{
+content:"TRASHNEVERDIE";
+position:absolute;
 left:0;
-z-index:-1;
+}
+
+.logo::before{
+color:red;
+animation:glitch 1s infinite;
+}
+
+.logo::after{
+color:blue;
+animation:glitch2 1s infinite;
+}
+
+@keyframes glitch{
+0%{left:2px}
+50%{left:-2px}
+100%{left:2px}
+}
+
+@keyframes glitch2{
+0%{left:-2px}
+50%{left:2px}
+100%{left:-2px}
+}
+
+/* TERMINAL */
+
+.terminal{
+background:#050505;
+border:1px solid #00ff9d33;
+padding:20px;
+width:80%;
+margin:auto;
+text-align:left;
+}
+
+input{
+background:black;
+border:none;
+color:#00ff9d;
+width:100%;
+font-family:Consolas;
+}
+
+/* PRODUCTS */
+
+.products{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:30px;
+max-width:900px;
+margin:auto;
+}
+
+.card{
+border:1px solid #00ff9d33;
+padding:25px;
+background:#050505;
+transition:.3s;
+}
+
+.card:hover{
+box-shadow:0 0 20px #00ff9d;
+transform:translateY(-5px);
+}
+
+/* SOCIAL */
+
+.social a{
+display:block;
+margin:10px;
+color:#00ff9d;
+text-decoration:none;
+}
+
+.social a:hover{
+text-shadow:0 0 10px #00ff9d;
 }
 
 </style>
@@ -60,61 +165,150 @@ z-index:-1;
 
 <body>
 
-<canvas id="matrix"></canvas>
+<div id="loader">INITIALIZING SYSTEM...</div>
 
-<div class="container">
+<nav>
+<button onclick="showTab('home')">HOME</button>
+<button onclick="showTab('products')">PRODUCTS</button>
+<button onclick="showTab('contact')">CONTACT</button>
+</nav>
 
-<h1>TRASHNEVERDIE</h1>
+<section id="home" class="active">
 
-<p>
-One Developer.<br>
-One Mind.<br>
-One Shadow.
-</p>
+<div class="logo">TRASHNEVERDIE</div>
 
-<a class="btn" href="home.html">ENTER</a>
+<p>Independent Developer Organization</p>
+
+<div class="terminal">
+
+<div id="terminalOutput">
+Type command... (try: help)
+</div>
+
+<input id="terminalInput" placeholder=">">
 
 </div>
 
+</section>
+
+<section id="products">
+
+<h2>Products</h2>
+
+<div class="products">
+
+<div class="card">
+<h3>Advanced Anti Cheat</h3>
+<p>Anti exploit protection system.</p>
+</div>
+
+<div class="card">
+<h3>Security Framework</h3>
+<p>Anti Dex / Anti RemoteSpy.</p>
+</div>
+
+<div class="card">
+<h3>Obby System</h3>
+<p>Checkpoint + leaderboard.</p>
+</div>
+
+<div class="card">
+<h3>Private Development</h3>
+<p>Custom systems for games.</p>
+</div>
+
+</div>
+
+</section>
+
+<section id="contact">
+
+<h2>Contact</h2>
+
+<div class="social">
+
+<a href="https://discord.gg/4C9S2b3jwu">Discord</a>
+<a href="https://facebook.com/trashneverdie">Facebook</a>
+<a href="https://tiktok.com/@trashneverdie">TikTok</a>
+
+</div>
+
+</section>
+
+<section id="dev">
+
+<h2>Developer Console</h2>
+<p>Welcome, Shadow Developer.</p>
+<p>TRASHNEVERDIE internal system unlocked.</p>
+
+</section>
+
 <script>
 
-var canvas = document.getElementById("matrix");
-var ctx = canvas.getContext("2d");
+/* LOADING */
 
-canvas.height = window.innerHeight;
-canvas.width = window.innerWidth;
+setTimeout(()=>{
+document.getElementById("loader").style.display="none"
+},2000)
 
-var letters = "TRASHNEVERDIE01";
-letters = letters.split("");
+/* TAB SYSTEM */
 
-var fontSize = 14;
-var columns = canvas.width/fontSize;
+function showTab(tab){
 
-var drops = [];
-for(var x=0;x<columns;x++)
-drops[x]=1;
+document.querySelectorAll("section").forEach(s=>{
+s.classList.remove("active")
+})
 
-function draw(){
-ctx.fillStyle="rgba(0,0,0,0.05)";
-ctx.fillRect(0,0,canvas.width,canvas.height);
+document.getElementById(tab).classList.add("active")
 
-ctx.fillStyle="#0F0";
-ctx.font=fontSize+"px monospace";
-
-for(var i=0;i<drops.length;i++){
-
-var text=letters[Math.floor(Math.random()*letters.length)];
-
-ctx.fillText(text,i*fontSize,drops[i]*fontSize);
-
-if(drops[i]*fontSize>canvas.height && Math.random()>0.975)
-drops[i]=0;
-
-drops[i]++;
-}
 }
 
-setInterval(draw,33);
+/* TERMINAL */
+
+const input = document.getElementById("terminalInput")
+const output = document.getElementById("terminalOutput")
+
+input.addEventListener("keydown",function(e){
+
+if(e.key==="Enter"){
+
+let cmd=input.value.toLowerCase()
+
+if(cmd==="help"){
+
+output.innerHTML+="<br>commands: help, products, contact, developer"
+
+}
+
+else if(cmd==="products"){
+
+showTab("products")
+
+}
+
+else if(cmd==="contact"){
+
+showTab("contact")
+
+}
+
+else if(cmd==="developer"){
+
+showTab("dev")
+
+}
+
+else{
+
+output.innerHTML+="<br>unknown command"
+
+}
+
+input.value=""
+
+}
+
+})
 
 </script>
 
