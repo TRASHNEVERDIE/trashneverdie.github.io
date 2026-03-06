@@ -1,163 +1,53 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>TRASHNEVERDIE COMPANY</title>
+<title>TRASHNEVERDIE TERMINAL</title>
 
 <style>
 
 body{
-margin:0;
 background:black;
-color:#00ff9d;
-font-family:Consolas;
-overflow-x:hidden;
+color:#00ff9c;
+font-family:monospace;
+margin:0;
+overflow:hidden;
 }
 
-/* LOADING SCREEN */
+/* LOADING */
 
-#loader{
+#loading{
 position:fixed;
 width:100%;
 height:100%;
 background:black;
 display:flex;
+justify-content:center;
 align-items:center;
-justify-content:center;
-z-index:999;
 font-size:30px;
-animation: flicker 1s infinite;
-}
-
-@keyframes flicker{
-0%{opacity:1}
-50%{opacity:.5}
-100%{opacity:1}
-}
-
-/* NAVBAR */
-
-nav{
-display:flex;
-justify-content:center;
-gap:40px;
-padding:15px;
-border-bottom:1px solid #00ff9d33;
-}
-
-nav button{
-background:none;
-border:1px solid #00ff9d;
-color:#00ff9d;
-padding:8px 18px;
-cursor:pointer;
-}
-
-nav button:hover{
-background:#00ff9d;
-color:black;
-}
-
-/* SECTIONS */
-
-section{
-display:none;
-padding:60px 20px;
-text-align:center;
-}
-
-.active{
-display:block;
-}
-
-/* GLITCH LOGO */
-
-.logo{
-font-size:55px;
-position:relative;
-}
-
-.logo::before,
-.logo::after{
-content:"TRASHNEVERDIE";
-position:absolute;
-left:0;
-}
-
-.logo::before{
-color:red;
-animation:glitch 1s infinite;
-}
-
-.logo::after{
-color:blue;
-animation:glitch2 1s infinite;
-}
-
-@keyframes glitch{
-0%{left:2px}
-50%{left:-2px}
-100%{left:2px}
-}
-
-@keyframes glitch2{
-0%{left:-2px}
-50%{left:2px}
-100%{left:-2px}
 }
 
 /* TERMINAL */
 
-.terminal{
-background:#050505;
-border:1px solid #00ff9d33;
-padding:20px;
-width:80%;
-margin:auto;
-text-align:left;
+#terminal{
+padding:40px;
+display:none;
 }
 
 input{
 background:black;
 border:none;
-color:#00ff9d;
-width:100%;
-font-family:Consolas;
+color:#00ff9c;
+font-family:monospace;
+font-size:18px;
+outline:none;
+width:80%;
 }
 
-/* PRODUCTS */
-
-.products{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-gap:30px;
-max-width:900px;
-margin:auto;
-}
-
-.card{
-border:1px solid #00ff9d33;
-padding:25px;
-background:#050505;
-transition:.3s;
-}
-
-.card:hover{
-box-shadow:0 0 20px #00ff9d;
-transform:translateY(-5px);
-}
-
-/* SOCIAL */
-
-.social a{
-display:block;
-margin:10px;
-color:#00ff9d;
-text-decoration:none;
-}
-
-.social a:hover{
-text-shadow:0 0 10px #00ff9d;
+canvas{
+position:fixed;
+top:0;
+left:0;
+z-index:-1;
 }
 
 </style>
@@ -165,108 +55,82 @@ text-shadow:0 0 10px #00ff9d;
 
 <body>
 
-<div id="loader">INITIALIZING SYSTEM...</div>
-
-<nav>
-<button onclick="showTab('home')">HOME</button>
-<button onclick="showTab('products')">PRODUCTS</button>
-<button onclick="showTab('contact')">CONTACT</button>
-</nav>
-
-<section id="home" class="active">
-
-<div class="logo">TRASHNEVERDIE</div>
-
-<p>Independent Developer Organization</p>
-
-<div class="terminal">
-
-<div id="terminalOutput">
-Type command... (try: help)
+<div id="loading">
+Initializing System...
 </div>
 
-<input id="terminalInput" placeholder=">">
+<canvas id="matrix"></canvas>
 
+<div id="terminal">
+
+<div id="output">
+TRASHNEVERDIE SECURE TERMINAL<br><br>
+type <b>help</b> to begin<br><br>
 </div>
 
-</section>
-
-<section id="products">
-
-<h2>Products</h2>
-
-<div class="products">
-
-<div class="card">
-<h3>Advanced Anti Cheat</h3>
-<p>Anti exploit protection system.</p>
-</div>
-
-<div class="card">
-<h3>Security Framework</h3>
-<p>Anti Dex / Anti RemoteSpy.</p>
-</div>
-
-<div class="card">
-<h3>Obby System</h3>
-<p>Checkpoint + leaderboard.</p>
-</div>
-
-<div class="card">
-<h3>Private Development</h3>
-<p>Custom systems for games.</p>
+<div>
+> <input id="cmd" autofocus>
 </div>
 
 </div>
-
-</section>
-
-<section id="contact">
-
-<h2>Contact</h2>
-
-<div class="social">
-
-<a href="https://discord.gg/4C9S2b3jwu">Discord</a>
-<a href="https://facebook.com/trashneverdie">Facebook</a>
-<a href="https://tiktok.com/@trashneverdie">TikTok</a>
-
-</div>
-
-</section>
-
-<section id="dev">
-
-<h2>Developer Console</h2>
-<p>Welcome, Shadow Developer.</p>
-<p>TRASHNEVERDIE internal system unlocked.</p>
-
-</section>
 
 <script>
 
 /* LOADING */
 
 setTimeout(()=>{
-document.getElementById("loader").style.display="none"
-},2000)
+document.getElementById("loading").style.display="none"
+document.getElementById("terminal").style.display="block"
+},3000)
 
-/* TAB SYSTEM */
 
-function showTab(tab){
+/* MATRIX */
 
-document.querySelectorAll("section").forEach(s=>{
-s.classList.remove("active")
-})
+const canvas=document.getElementById("matrix")
+const ctx=canvas.getContext("2d")
 
-document.getElementById(tab).classList.add("active")
+canvas.height=window.innerHeight
+canvas.width=window.innerWidth
+
+let letters="01TRASHNEVERDIE"
+letters=letters.split("")
+
+let font=14
+let columns=canvas.width/font
+let drops=[]
+
+for(let x=0;x<columns;x++) drops[x]=1
+
+function draw(){
+
+ctx.fillStyle="rgba(0,0,0,0.05)"
+ctx.fillRect(0,0,canvas.width,canvas.height)
+
+ctx.fillStyle="#00ff9c"
+ctx.font=font+"px monospace"
+
+for(let i=0;i<drops.length;i++){
+
+let text=letters[Math.floor(Math.random()*letters.length)]
+
+ctx.fillText(text,i*font,drops[i]*font)
+
+if(drops[i]*font>canvas.height&&Math.random()>0.975)
+drops[i]=0
+
+drops[i]++
 
 }
 
-/* TERMINAL */
+}
 
-const input = document.getElementById("terminalInput")
-const output = document.getElementById("terminalOutput")
+setInterval(draw,33)
+
+
+/* TERMINAL COMMAND */
+
+const input=document.getElementById("cmd")
+const output=document.getElementById("output")
 
 input.addEventListener("keydown",function(e){
 
@@ -274,33 +138,52 @@ if(e.key==="Enter"){
 
 let cmd=input.value.toLowerCase()
 
+output.innerHTML+="<br>> "+cmd+"<br>"
+
 if(cmd==="help"){
 
-output.innerHTML+="<br>commands: help, products, contact, developer"
+output.innerHTML+=`
+commands:<br>
+help<br>
+enter<br>
+products<br>
+about<br>
+contact<br>
+`
+
+}
+
+else if(cmd==="enter"){
+
+output.innerHTML+="Accessing system..."
+
+setTimeout(()=>{
+window.location="home.html"
+},1500)
 
 }
 
 else if(cmd==="products"){
 
-showTab("products")
+window.location="home.html#products"
+
+}
+
+else if(cmd==="about"){
+
+output.innerHTML+="TRASHNEVERDIE COMPANY - Independent Developer System"
 
 }
 
 else if(cmd==="contact"){
 
-showTab("contact")
-
-}
-
-else if(cmd==="developer"){
-
-showTab("dev")
+output.innerHTML+="Discord / Facebook / TikTok available on site"
 
 }
 
 else{
 
-output.innerHTML+="<br>unknown command"
+output.innerHTML+="command not found"
 
 }
 
