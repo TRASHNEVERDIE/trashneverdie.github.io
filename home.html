@@ -10,37 +10,54 @@
 body{
 margin:0;
 font-family:Consolas;
-background:#0b0b0b;
+background:black;
 color:white;
+overflow-x:hidden;
+}
+
+/* BACKGROUND GRID */
+
+body::before{
+content:"";
+position:fixed;
+width:100%;
+height:100%;
+background-image:
+linear-gradient(#00ff9d22 1px, transparent 1px),
+linear-gradient(90deg,#00ff9d22 1px, transparent 1px);
+background-size:40px 40px;
+z-index:-1;
 }
 
 /* NAVBAR */
 
 nav{
-background:#111;
-padding:15px;
+background:#050505;
+padding:18px;
 display:flex;
 justify-content:center;
-gap:40px;
-border-bottom:1px solid #00ff9d;
+gap:60px;
+border-bottom:1px solid #00ff9d55;
 }
 
 nav a{
-color:white;
 text-decoration:none;
+color:white;
 font-size:18px;
-cursor:pointer;
+letter-spacing:2px;
+transition:0.3s;
 }
 
 nav a:hover{
 color:#00ff9d;
+text-shadow:0 0 10px #00ff9d;
 }
 
 /* SECTION */
 
 section{
 display:none;
-padding:60px;
+padding:80px 20px;
 text-align:center;
 }
 
@@ -48,58 +65,113 @@ text-align:center;
 display:block;
 }
 
+/* TITLE */
+
 h1{
-font-size:50px;
+font-size:55px;
 color:#00ff9d;
+text-shadow:0 0 20px #00ff9d55;
 }
 
-/* PRODUCT */
+/* PRODUCT GRID */
 
 .products{
-display:flex;
-justify-content:center;
-flex-wrap:wrap;
-gap:25px;
-margin-top:40px;
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+gap:40px;
+max-width:1100px;
+margin:auto;
+margin-top:60px;
 }
 
+/* CARD */
+
 .card{
-background:#111;
-border:1px solid #333;
-padding:25px;
-width:230px;
-transition:0.3s;
+background:#0a0a0a;
+border:1px solid #222;
+padding:35px;
+transition:0.4s;
+position:relative;
+overflow:hidden;
+}
+
+.card::before{
+content:"";
+position:absolute;
+top:0;
+left:-100%;
+width:100%;
+height:100%;
+background:linear-gradient(90deg,transparent,#00ff9d33,transparent);
+transition:0.6s;
+}
+
+.card:hover::before{
+left:100%;
 }
 
 .card:hover{
-transform:scale(1.05);
+transform:translateY(-8px);
 border-color:#00ff9d;
+box-shadow:0 0 25px #00ff9d33;
 }
 
+.card h3{
+margin-bottom:15px;
+}
+
+.card p{
+color:#aaa;
+font-size:14px;
+}
+
+/* BUTTON */
+
 button{
-background:#00ff9d;
-border:none;
-padding:10px 20px;
+margin-top:20px;
+background:transparent;
+border:1px solid #00ff9d;
+color:#00ff9d;
+padding:10px 25px;
 cursor:pointer;
-margin-top:10px;
+transition:0.3s;
+}
+
+button:hover{
+background:#00ff9d;
+color:black;
+box-shadow:0 0 15px #00ff9d;
 }
 
 /* SOCIAL */
 
-.social a{
-display:block;
-margin:12px;
-font-size:18px;
-color:#00ff9d;
-text-decoration:none;
+.social{
+margin-top:40px;
 }
 
+.social a{
+display:inline-block;
+margin:10px 20px;
+font-size:18px;
+text-decoration:none;
+color:white;
+transition:0.3s;
+}
+
+.social a:hover{
+color:#00ff9d;
+text-shadow:0 0 10px #00ff9d;
+}
+
+/* FOOTER */
+
 footer{
-margin-top:60px;
-padding:20px;
-background:#111;
-text-align:center;
-color:#666;
+margin-top:80px;
+padding:25px;
+background:#050505;
+color:#777;
+font-size:14px;
+border-top:1px solid #00ff9d22;
 }
 
 </style>
@@ -116,25 +188,21 @@ color:#666;
 
 </nav>
 
-<!-- HOME -->
-
 <section id="home" class="active">
 
-<h1>TRASHNEVERDIE COMPANY</h1>
+<h1>TRASHNEVERDIE</h1>
 
 <p>
-Independent developer creating systems, scripts and protection tools.
+Independent Developer Organization
 </p>
 
 <p>
-One Developer.<br>
-One Mind.<br>
-One Shadow.
+One Developer<br>
+One Mind<br>
+One Shadow
 </p>
 
 </section>
-
-<!-- PRODUCTS -->
 
 <section id="products">
 
@@ -144,13 +212,13 @@ One Shadow.
 
 <div class="card">
 <h3>Advanced Anti Cheat</h3>
-<p>Protection against exploits and remote spy.</p>
+<p>Protection against exploit tools and remote spy.</p>
 <button>Details</button>
 </div>
 
 <div class="card">
 <h3>Security System</h3>
-<p>Anti Dex + anti exploit protection.</p>
+<p>Anti Dex + Anti exploit protection.</p>
 <button>Details</button>
 </div>
 
@@ -170,17 +238,15 @@ One Shadow.
 
 </section>
 
-<!-- CONTACT -->
-
 <section id="contact">
 
 <h1>Contact</h1>
 
 <div class="social">
 
-<a href="https://discord.gg/4C9S2b3jwu">💬 Discord</a>
-<a href="https://facebook.com/trashneverdie">📘 Facebook</a>
-<a href="https://tiktok.com/@trashneverdie">🎵 TikTok</a>
+<a href="https://discord.gg/4C9S2b3jwu">Discord</a>
+<a href="https://facebook.com/trashneverdie">Facebook</a>
+<a href="https://tiktok.com/@trashneverdie">TikTok</a>
 
 </div>
 
@@ -188,7 +254,7 @@ One Shadow.
 
 <footer>
 
-TRASHNEVERDIE COMPANY © 2026
+TRASHNEVERDIE COMPANY
 
 </footer>
 
