@@ -1,58 +1,340 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Profile</title>
-<link rel="stylesheet" href="style.css">
+
+<title>TRASHNEVERDIE PROFILE</title>
+
+<style>
+
+body{
+margin:0;
+background:black;
+color:#00ffff;
+font-family:monospace;
+overflow:hidden;
+}
+
+/* CANVAS BACKGROUND */
+
+#particles{
+position:fixed;
+top:0;
+left:0;
+z-index:-2;
+}
+
+/* NAV */
+
+nav{
+display:flex;
+justify-content:space-between;
+padding:20px;
+background:rgba(0,0,0,0.6);
+}
+
+nav a{
+color:#00ffff;
+margin:10px;
+text-decoration:none;
+}
+
+/* PROFILE */
+
+.profile{
+text-align:center;
+margin-top:80px;
+}
+
+.title{
+font-size:50px;
+background:linear-gradient(90deg,#00ffff,#00ff99,#66ff00);
+-webkit-background-clip:text;
+color:transparent;
+}
+
+/* LOGO */
+
+#logo3d{
+width:300px;
+height:300px;
+margin:auto;
+}
+
+/* TERMINAL CHAT */
+
+.chatbox{
+
+width:600px;
+max-width:90%;
+
+margin:auto;
+margin-top:40px;
+
+background:#050505;
+border:1px solid #00ffff;
+
+padding:20px;
+
+box-shadow:0 0 20px #00ffff;
+
+}
+
+.messages{
+height:200px;
+overflow:auto;
+}
+
+input{
+width:100%;
+padding:10px;
+background:black;
+border:1px solid #00ffff;
+color:#00ffff;
+}
+
+/* EXPLOIT SCANNER */
+
+.scanner{
+margin-top:40px;
+text-align:center;
+}
+
+.log{
+color:#00ff99;
+}
+
+/* SECRET PANEL */
+
+#devpanel{
+
+position:fixed;
+bottom:0;
+right:0;
+background:#050505;
+border:1px solid #00ffff;
+
+padding:20px;
+
+display:none;
+
+}
+
+</style>
 </head>
 
 <body>
 
+<canvas id="particles"></canvas>
+
 <nav>
 
-<h2 class="navlogo">TRASHNEVERDIE</h2>
+<div>TRASHNEVERDIE</div>
 
-<ul>
-
-<li><a href="home.html">HOME</a></li>
-<li><a href="profile.html">PROFILE</a></li>
-<li><a href="product.html">PRODUCT</a></li>
-
-</ul>
+<div>
+<a href="home.html">HOME</a>
+<a href="profile.html">PROFILE</a>
+<a href="product.html">PRODUCT</a>
+</div>
 
 </nav>
 
-<section class="profile">
+<div class="profile">
 
-<h1>TRASHNEVERDIE COMPANY</h1>
+<h1 class="title">TRASHNEVERDIE COMPANY</h1>
 
 <p>
 
-TRASHNEVERDIE COMPANY is an independent development entity
-built and operated by a single developer.
-
-Focused on creating advanced game security systems,
-anti exploit technologies, and highly optimized scripts.
-
-Every system is engineered with precision,
-designed to resist modern exploit tools
-and provide maximum stability.
-
-This company operates silently,
-but its systems speak through performance.
+Independent developer entity specializing in
+advanced exploit protection systems,
+anti cheat technologies,
+and high level game scripting architecture.
 
 </p>
 
-<div class="social">
-
-<a href="#">TikTok</a>
-<a href="#">Facebook</a>
-<a href="#">Roblox</a>
-<a href="#">ScriptBlox</a>
-<a href="#">Discord</a>
+<div id="logo3d"></div>
 
 </div>
 
-</section>
+<!-- AI CHAT TERMINAL -->
+
+<div class="chatbox">
+
+<div class="messages" id="messages"></div>
+
+<input id="input" placeholder="type command...">
+
+</div>
+
+<!-- EXPLOIT DETECTION -->
+
+<div class="scanner">
+
+<h3>LIVE EXPLOIT DETECTION</h3>
+
+<div id="log"></div>
+
+</div>
+
+<!-- SECRET DEV PANEL -->
+
+<div id="devpanel">
+
+<h3>DEVELOPER PANEL</h3>
+
+<p>System Control Access</p>
+
+</div>
+
+<script>
+
+/* PARTICLE BACKGROUND */
+
+const canvas=document.getElementById("particles")
+const ctx=canvas.getContext("2d")
+
+canvas.width=window.innerWidth
+canvas.height=window.innerHeight
+
+let particles=[]
+
+for(let i=0;i<120;i++){
+
+particles.push({
+x:Math.random()*canvas.width,
+y:Math.random()*canvas.height,
+vx:Math.random()*2-1,
+vy:Math.random()*2-1
+})
+
+}
+
+function draw(){
+
+ctx.fillStyle="rgba(0,0,0,0.2)"
+ctx.fillRect(0,0,canvas.width,canvas.height)
+
+ctx.fillStyle="#00ffff"
+
+particles.forEach(p=>{
+
+p.x+=p.vx
+p.y+=p.vy
+
+ctx.fillRect(p.x,p.y,2,2)
+
+})
+
+requestAnimationFrame(draw)
+
+}
+
+draw()
+
+/* 3D ROTATING LOGO */
+
+const logo=document.getElementById("logo3d")
+
+let angle=0
+
+setInterval(()=>{
+
+angle+=1
+
+logo.style.transform="rotateY("+angle+"deg)"
+
+logo.innerHTML="<h2>TRASHNEVERDIE</h2>"
+
+},16)
+
+/* AI TERMINAL */
+
+const messages=document.getElementById("messages")
+const input=document.getElementById("input")
+
+const responses={
+
+"who are you":"TRASHNEVERDIE AI TERMINAL",
+"company":"Independent security developer",
+"systems":"Anti exploit / anti cheat / security frameworks",
+"hello":"Welcome to TRASHNEVERDIE terminal"
+
+}
+
+input.addEventListener("keydown",e=>{
+
+if(e.key==="Enter"){
+
+let text=input.value
+
+messages.innerHTML+="<div>> "+text+"</div>"
+
+let reply=responses[text.toLowerCase()] || "Unknown command"
+
+messages.innerHTML+="<div>"+reply+"</div>"
+
+input.value=""
+
+messages.scrollTop=messages.scrollHeight
+
+}
+
+})
+
+/* EXPLOIT SCANNER */
+
+const log=document.getElementById("log")
+
+const events=[
+
+"executor signature detected",
+"remote spy behavior found",
+"dex injection attempt",
+"memory scan active",
+"security firewall enabled"
+
+]
+
+setInterval(()=>{
+
+let div=document.createElement("div")
+
+div.className="log"
+
+div.textContent=events[Math.floor(Math.random()*events.length)]
+
+log.prepend(div)
+
+},1500)
+
+/* FAKE HACK SCREEN */
+
+setInterval(()=>{
+
+if(Math.random()>0.97){
+
+alert("WARNING: Suspicious exploit detected")
+
+}
+
+},8000)
+
+/* SECRET PANEL */
+
+let code=""
+
+document.addEventListener("keydown",e=>{
+
+code+=e.key.toUpperCase()
+
+if(code.includes("DEV")){
+
+document.getElementById("devpanel").style.display="block"
+
+}
+
+})
+
+</script>
 
 </body>
 </html>
